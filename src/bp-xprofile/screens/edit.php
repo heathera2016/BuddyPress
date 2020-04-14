@@ -49,7 +49,14 @@ function xprofile_screen_edit_profile() {
 		// fields have been submitted.
 		$posted_field_ids = wp_parse_id_list( $_POST['field_ids'] );
 		$is_required      = array();
-
+		/**
+		* Fires on each iteration of an XProfile field before being saved.
+		*
+		* @since 6.0
+		*
+		* @param int    $posted_field_id ID of the field that was posted.
+		*/
+		do_action( 'pre_xprofile_profile_field_data_update', $posted_field_ids );
 		// Loop through the posted fields formatting any datebox values then validate the field.
 		foreach ( (array) $posted_field_ids as $field_id ) {
 			bp_xprofile_maybe_format_datebox_post_data( $field_id );
